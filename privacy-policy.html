@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Sidebar with Gemini</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --text-color: #333;
+            --bg-color: #fff;
+            --section-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #e0e0e0;
+                --bg-color: #1a1a1a;
+                --section-bg: #2d2d2d;
+                --border-color: #404040;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2 {
+            color: var(--primary-color);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: var(--section-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .emphasis {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        
+        <div class="section">
+            <h2>Introduction</h2>
+            <p>This privacy policy explains how the Sidebar with Gemini extension ("we", "our", or "the extension") handles your information. We are committed to protecting your privacy and being transparent about our data practices.</p>
+        </div>
+
+        <div class="section">
+            <h2>Data Collection and Use</h2>
+            <p>We collect and use the following information:</p>
+            <ul>
+                <li><strong>Gemini API Key:</strong> Your provided API key is stored securely using Chrome's storage API and is used solely for authenticating requests to Google's Gemini service.</li>
+                <li><strong>User Preferences:</strong> Settings such as sidebar visibility and theme preference are stored locally to maintain your chosen configuration.</li>
+                <li><strong>Webpage Content:</strong> When you use the extension's features, the current webpage's content is temporarily processed to generate summaries and analysis. This content is never stored permanently and is discarded after processing.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Data Storage and Security</h2>
+            <p>All data is stored locally on your device:</p>
+            <ul>
+                <li>API keys are securely stored using Chrome's sync storage</li>
+                <li>User preferences are saved in local storage</li>
+                <li>No data is stored on external servers</li>
+                <li>All communication with the Gemini API uses secure HTTPS connections</li>
+                <li>We implement security best practices to protect your data</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Third-Party Services</h2>
+            <p>The only third-party service we interact with is Google's Gemini API:</p>
+            <ul>
+                <li>Webpage content is sent to Gemini API for processing</li>
+                <li>Your API key is used for authentication</li>
+                <li>No personal information is shared with any other third parties</li>
+                <li>We do not use analytics or tracking services</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Data Removal</h2>
+            <p>You can remove your data at any time by:</p>
+            <ul>
+                <li>Using the "Clear API Key" button in the sidebar</li>
+                <li>Clearing the extension's storage through Chrome's settings</li>
+                <li>Uninstalling the extension (removes all stored data)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Required Permissions</h2>
+            <p>The extension requires the following permissions to function:</p>
+            <ul>
+                <li><strong>activeTab:</strong> To access the current webpage for analysis</li>
+                <li><strong>scripting:</strong> To inject the sidebar interface</li>
+                <li><strong>storage:</strong> To save your API key and preferences</li>
+                <li><strong>tabs:</strong> To manage the sidebar across different tabs</li>
+                <li><strong>Host Permission (generativelanguage.googleapis.com):</strong> To communicate with the Gemini API</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Children's Privacy</h2>
+            <p>The extension is not intended for use by children under 13 years of age. We do not knowingly collect personal information from children under 13.</p>
+        </div>
+
+        <div class="section">
+            <h2>Changes to This Policy</h2>
+            <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy in this location.</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this privacy policy or our data practices, please contact us through our GitHub repository.</p>
+        </div>
+
+        <p class="last-updated">Last updated: March 2024</p>
+    </div>
+</body>
+</html> 
