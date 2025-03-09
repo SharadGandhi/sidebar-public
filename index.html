@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +12,28 @@
             --section-bg: #f8f9fa;
             --border-color: #e0e0e0;
             --nav-width: 250px;
+            --theme-switch-bg: #e0e0e0;
+            --theme-switch-color: #333;
         }
 
         @media (prefers-color-scheme: dark) {
-            :root {
+            :root[data-theme="system"] {
                 --text-color: #e0e0e0;
                 --bg-color: #1a1a1a;
                 --section-bg: #2d2d2d;
                 --border-color: #404040;
+                --theme-switch-bg: #404040;
+                --theme-switch-color: #e0e0e0;
             }
+        }
+
+        :root[data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --bg-color: #1a1a1a;
+            --section-bg: #2d2d2d;
+            --border-color: #404040;
+            --theme-switch-bg: #404040;
+            --theme-switch-color: #e0e0e0;
         }
 
         body {
@@ -90,6 +103,7 @@
             margin-left: var(--nav-width);
             padding: 2rem;
             flex: 1;
+            position: relative;
         }
 
         @media (max-width: 768px) {
@@ -249,9 +263,232 @@
         .step a:hover {
             text-decoration: underline;
         }
+
+        .carousel-container {
+            margin: 2rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--section-bg);
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            padding-bottom: 3rem;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: auto;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 5.5rem 2rem 4rem;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 350px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            object-fit: contain;
+            margin: 0 auto 1.5rem;
+            display: block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-slide h3 {
+            margin: 0 0 0.75rem;
+            color: var(--primary-color);
+            text-align: center;
+            width: 100%;
+        }
+
+        .carousel-slide p {
+            margin: 0;
+            text-align: center;
+            opacity: 0.8;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--section-bg);
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .carousel-dot:hover {
+            background: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .carousel-button:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .carousel-button.prev {
+            left: 1rem;
+        }
+
+        .carousel-button.next {
+            right: 1rem;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--theme-switch-bg);
+            padding: 0.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-switch button {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--theme-switch-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switch button:hover {
+            background: rgba(66, 133, 244, 0.1);
+        }
+
+        .theme-switch button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .theme-switch button svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
     </style>
 </head>
 <body>
+    <div class="theme-switch">
+        <button id="lightTheme" title="Light theme">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+        <button id="darkTheme" title="Dark theme">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+        <button id="systemTheme" title="System theme">
+            <svg viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+        </button>
+    </div>
+
     <nav class="nav-sidebar">
         <h3>Documentation</h3>
         <ul class="nav-links">
@@ -284,6 +521,47 @@
                 <h1>Sidebar with Gemini</h1>
                 <p class="subtitle">A powerful browser extension that brings AI-powered content analysis right to your sidebar</p>
             </header>
+
+            <div class="carousel-container">
+                <button class="carousel-button prev" onclick="moveCarousel(-1)">❮</button>
+                <button class="carousel-button next" onclick="moveCarousel(1)">❯</button>
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/1.Setup.png" alt="Extension Setup">
+                            <h3>Easy Setup</h3>
+                            <p>Quick and simple setup process with your Gemini API key</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/2.Summarize.png" alt="Text Summarization">
+                            <h3>Smart Summarization</h3>
+                            <p>Get concise summaries of any selected text</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/3.Highlights.png" alt="Text Highlights">
+                            <h3>Key Highlights</h3>
+                            <p>Extract important points and highlights from content</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/4.Explain.png" alt="Explanations">
+                            <h3>Detailed Explanations</h3>
+                            <p>Get in-depth explanations of complex topics</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/5.Search_And_Share.png" alt="Search and Share">
+                            <h3>Search & Share</h3>
+                            <p>Easily search through content and share insights</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(3)"></div>
+                    <div class="carousel-dot" onclick="goToSlide(4)"></div>
+                </div>
+            </div>
 
             <div class="features">
                 <div class="feature-card">
@@ -423,6 +701,90 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            let autoScrollInterval;
+            
+            function updateCarousel() {
+                slides.forEach((slide, index) => {
+                    slide.classList.toggle('active', index === currentSlide);
+                });
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            function moveCarousel(direction) {
+                clearInterval(autoScrollInterval);
+                currentSlide = (currentSlide + direction + slides.length) % slides.length;
+                updateCarousel();
+                startAutoScroll();
+            }
+            
+            function goToSlide(slideIndex) {
+                clearInterval(autoScrollInterval);
+                currentSlide = slideIndex;
+                updateCarousel();
+                startAutoScroll();
+            }
+
+            function startAutoScroll() {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = setInterval(() => moveCarousel(1), 5000);
+            }
+
+            // Initialize carousel
+            updateCarousel();
+            startAutoScroll();
+
+            // Add event listeners to pause auto-scroll on hover
+            document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
+                clearInterval(autoScrollInterval);
+            });
+
+            document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+                startAutoScroll();
+            });
+
+            // Theme switcher functionality
+            const root = document.documentElement;
+            const themeButtons = {
+                light: document.getElementById('lightTheme'),
+                dark: document.getElementById('darkTheme'),
+                system: document.getElementById('systemTheme')
+            };
+
+            // Get saved theme from localStorage or default to system
+            const savedTheme = localStorage.getItem('theme') || 'system';
+
+            // Set initial theme immediately to avoid flash
+            document.addEventListener('DOMContentLoaded', () => {
+                setTheme(savedTheme);
+            });
+
+            // Add click handlers for theme buttons
+            Object.entries(themeButtons).forEach(([theme, button]) => {
+                button.addEventListener('click', () => setTheme(theme));
+            });
+
+            function setTheme(theme) {
+                // Remove active class from all buttons
+                Object.values(themeButtons).forEach(button => button.classList.remove('active'));
+                
+                // Add active class to selected theme button
+                themeButtons[theme].classList.add('active');
+                
+                // Set theme attribute on root element
+                root.setAttribute('data-theme', theme);
+                
+                // Save theme preference
+                localStorage.setItem('theme', theme);
+            }
+        </script>
     </div>
 </body>
 </html> 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +12,28 @@
             --section-bg: #f8f9fa;
             --border-color: #e0e0e0;
             --nav-width: 250px;
+            --theme-switch-bg: #e0e0e0;
+            --theme-switch-color: #333;
         }
 
         @media (prefers-color-scheme: dark) {
-            :root {
+            :root[data-theme="system"] {
                 --text-color: #e0e0e0;
                 --bg-color: #1a1a1a;
                 --section-bg: #2d2d2d;
                 --border-color: #404040;
+                --theme-switch-bg: #404040;
+                --theme-switch-color: #e0e0e0;
             }
+        }
+
+        :root[data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --bg-color: #1a1a1a;
+            --section-bg: #2d2d2d;
+            --border-color: #404040;
+            --theme-switch-bg: #404040;
+            --theme-switch-color: #e0e0e0;
         }
 
         body {
@@ -90,6 +103,7 @@
             margin-left: var(--nav-width);
             padding: 2rem;
             flex: 1;
+            position: relative;
         }
 
         @media (max-width: 768px) {
@@ -156,9 +170,82 @@
             color: var(--text-color);
             opacity: 0.8;
         }
+
+        .theme-switch {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--theme-switch-bg);
+            padding: 0.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-switch button {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--theme-switch-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-switch button:hover {
+            background: rgba(66, 133, 244, 0.1);
+        }
+
+        .theme-switch button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .theme-switch button svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
     </style>
 </head>
 <body>
+    <div class="theme-switch">
+        <button id="lightTheme" title="Light theme">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+        <button id="darkTheme" title="Dark theme">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+        <button id="systemTheme" title="System theme">
+            <svg viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+        </button>
+    </div>
     <nav class="nav-sidebar">
         <h3>Documentation</h3>
         <ul class="nav-links">
@@ -267,5 +354,42 @@
             <p class="last-updated">Last updated: March 2024</p>
         </div>
     </div>
+
+    <script>
+        // Theme switcher functionality
+        const root = document.documentElement;
+        const themeButtons = {
+            light: document.getElementById('lightTheme'),
+            dark: document.getElementById('darkTheme'),
+            system: document.getElementById('systemTheme')
+        };
+
+        // Get saved theme from localStorage or default to system
+        const savedTheme = localStorage.getItem('theme') || 'system';
+
+        // Set initial theme immediately to avoid flash
+        document.addEventListener('DOMContentLoaded', () => {
+            setTheme(savedTheme);
+        });
+
+        // Add click handlers for theme buttons
+        Object.entries(themeButtons).forEach(([theme, button]) => {
+            button.addEventListener('click', () => setTheme(theme));
+        });
+
+        function setTheme(theme) {
+            // Remove active class from all buttons
+            Object.values(themeButtons).forEach(button => button.classList.remove('active'));
+            
+            // Add active class to selected theme button
+            themeButtons[theme].classList.add('active');
+            
+            // Set theme attribute on root element
+            root.setAttribute('data-theme', theme);
+            
+            // Save theme preference
+            localStorage.setItem('theme', theme);
+        }
+    </script>
 </body>
 </html> 
