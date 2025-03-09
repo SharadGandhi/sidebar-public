@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview - Sidebar with Gemini</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --text-color: #333;
+            --bg-color: #fff;
+            --section-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --nav-width: 250px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #e0e0e0;
+                --bg-color: #1a1a1a;
+                --section-bg: #2d2d2d;
+                --border-color: #404040;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-sidebar {
+            width: var(--nav-width);
+            height: 100vh;
+            background: var(--section-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            position: fixed;
+            overflow-y: auto;
+        }
+
+        .nav-sidebar h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-links a.active {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        .nav-links .description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+
+        .main-content {
+            margin-left: var(--nav-width);
+            padding: 2rem;
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .nav-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--section-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary-color);
+        }
+
+        .key-points {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--section-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .key-points h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .key-points ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .key-points li::before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .setup-guide {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--section-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .setup-guide h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+
+        .setup-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .step {
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .step h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step ol, .step ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .step li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step li:last-child {
+            margin-bottom: 0;
+        }
+
+        .step a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .step a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-sidebar">
+        <h3>Documentation</h3>
+        <ul class="nav-links">
+            <li>
+                <a href="index.html" class="active">Overview
+                    <div class="description">Learn about the extension's features and capabilities</div>
+                </a>
+            </li>
+            <li>
+                <a href="userguide.html">User Guide
+                    <div class="description">Detailed instructions on how to use the extension</div>
+                </a>
+            </li>
+            <li>
+                <a href="privacy-policy.html">Privacy Policy
+                    <div class="description">How we handle and protect your data</div>
+                </a>
+            </li>
+            <li>
+                <a href="terms-of-service.html">Terms of Service
+                    <div class="description">Rules and guidelines for using the extension</div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <header>
+                <h1>Sidebar with Gemini</h1>
+                <p class="subtitle">A powerful browser extension that brings AI-powered content analysis right to your sidebar</p>
+            </header>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                            <line x1="3" y1="14" x2="21" y2="14"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                        Summarize
+                    </h3>
+                    <p>Get instant, concise summaries of any webpage content, helping you quickly grasp the main points without reading the entire text.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Explain
+                    </h3>
+                    <p>Get detailed explanations of complex content, breaking down technical terms and concepts into easily understandable language.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <circle cx="3" cy="6" r="1"></circle>
+                            <circle cx="3" cy="12" r="1"></circle>
+                            <circle cx="3" cy="18" r="1"></circle>
+                        </svg>
+                        Highlights
+                    </h3>
+                    <p>Extract key points and important information from any webpage, presented as easy-to-read bullet points.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        Smart Search
+                    </h3>
+                    <p>Extract relevant keywords from the page and quickly search for related content using your default search engine.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                        Share
+                    </h3>
+                    <p>Generate engaging previews of web content for easy sharing, complete with automatically generated descriptions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        Theme Support
+                    </h3>
+                    <p>Seamlessly switch between light and dark themes, with automatic system theme detection for optimal viewing comfort.</p>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Powered by Google's Gemini AI for accurate and intelligent content analysis</li>
+                    <li>Clean, intuitive interface with easy-to-use toolbar buttons</li>
+                    <li>Secure API key storage with local browser encryption</li>
+                    <li>Copy functionality for all generated content</li>
+                    <li>Real-time content processing with loading indicators</li>
+                    <li>Persistent settings across browser sessions</li>
+                    <li>Automatically disabled on Google domains for compatibility</li>
+                    <li>Responsive design that adapts to your browsing environment</li>
+                </ul>
+            </div>
+
+            <div class="setup-guide">
+                <h2>Getting Started</h2>
+                <div class="setup-steps">
+                    <div class="step">
+                        <h3>1. Install the Extension</h3>
+                        <p>Install "Sidebar with Gemini" from the Chrome Web Store by clicking the "Add to Chrome" button.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <h3>2. Get Your Gemini API Key</h3>
+                        <ol>
+                            <li>Visit the <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></li>
+                            <li>Sign in with your Google account</li>
+                            <li>Create a new API key or copy your existing one</li>
+                            <li>Keep this key secure - you'll need it to use the extension</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h3>3. Configure the Extension</h3>
+                        <ol>
+                            <li>Click the extension icon in your browser toolbar</li>
+                            <li>Look for the API key input field at the bottom of the sidebar</li>
+                            <li>Paste your Gemini API key and click "Save"</li>
+                            <li>The extension will securely store your key for future use</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h3>4. Start Using the Extension</h3>
+                        <ol>
+                            <li>Visit any webpage you want to analyze</li>
+                            <li>Click the extension icon to open the sidebar</li>
+                            <li>Use the toolbar buttons to:
+                                <ul>
+                                    <li>Summarize the page content</li>
+                                    <li>Get detailed explanations</li>
+                                    <li>Extract key highlights</li>
+                                    <li>Generate smart search queries</li>
+                                    <li>Create shareable previews</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
