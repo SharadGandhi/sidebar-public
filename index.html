@@ -458,6 +458,33 @@
             stroke-linecap: round;
             stroke-linejoin: round;
         }
+
+        .footer {
+            background: var(--section-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin: 0;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -701,6 +728,10 @@
                 </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <p>A product by <a href="https://unwrangler.com" target="_blank">Unwrangler</a> • © 2025 All rights reserved</p>
+        </footer>
 
         <script>
             let currentSlide = 0;

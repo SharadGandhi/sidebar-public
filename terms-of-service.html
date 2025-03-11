@@ -44,6 +44,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            min-height: 100vh;
         }
 
         .nav-sidebar {
@@ -104,6 +105,9 @@
             padding: 2rem;
             flex: 1;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         @media (max-width: 768px) {
@@ -125,6 +129,7 @@
         }
 
         .container {
+            flex: 1;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -191,6 +196,33 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        .footer {
+            background: var(--section-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin: 0;
+            color: var(--text-color);
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -332,6 +364,9 @@
                 <p>For any questions about these Terms of Service, please contact us through the Chrome Web Store support channel.</p>
             </section>
         </div>
+        <footer class="footer">
+            <p>A product by <a href="https://unwrangler.com" target="_blank">Unwrangler</a> • © 2025 All rights reserved</p>
+        </footer>
     </div>
 
     <script>
