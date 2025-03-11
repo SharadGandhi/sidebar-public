@@ -1,0 +1,6 @@
+# robots.txt for sidebar.unwrangler.com
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sidebar.unwrangler.com/sitemap.xml 
