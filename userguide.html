@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Guide - Sidebar with Gemini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary-color: #4285f4;
@@ -301,6 +302,38 @@
             color: var(--text-color);
             opacity: 0.8;
         }
+
+        .add-to-chrome {
+            display: inline-flex;
+            align-items: center;
+            background: #4285f4;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+        }
+
+        .add-to-chrome:hover {
+            background: #3367d6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-to-chrome:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-to-chrome i {
+            margin-right: 0.75rem;
+        }
     </style>
 </head>
 <body>
@@ -359,14 +392,20 @@
 
     <div class="main-content">
         <div class="container">
+            <h1>User Guide</h1>
             <h1>Sidebar with Gemini Documentation</h1>
+
 
             <section>
                 <h2>Getting Started</h2>
                 <div class="steps">
                     <div class="step">
                         <h3>Install the Extension</h3>
-                        <p>Install Sidebar with Gemini from the Chrome Web Store.</p>
+                        <p>Install Sidebar with Gemini from the Chrome Web Store by clicking the "Add to Chrome" button.</p>
+                        <a href="https://chromewebstore.google.com/detail/sidebar-with-gemini/ebamemkjoacjajcmhjjkcnngpafbkdbh" class="add-to-chrome" target="_blank">
+                            <i class="fab fa-chrome"></i>
+                            Add to Chrome
+                        </a>
                     </div>
 
                     <div class="step">
